@@ -1,18 +1,22 @@
 from os import name, remove, system
 from time import sleep
 from typing import List
-
 from database import Database
 import Commands
+from . import RowCommands
+from . import TableCommands
 
 
-class CommandHandler:
+class CommandHandler():
     global db
-
+    global row_command
+    global table_command
 
 
     def __init__(self) -> None:
         self.db = Database()  # creates database class
+        self.row_command = RowCommands()
+        self.table_command = TableCommands()
         pass
 
     def main_loop(self) -> None:
