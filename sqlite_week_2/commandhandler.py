@@ -1,3 +1,4 @@
+from codeop import compile_command
 from os import name, remove, system
 from time import sleep
 
@@ -14,6 +15,7 @@ class CommandHandler:
     TABLE_DELETE = "22"
     TABLE_ADD = "23"
     EXIT_PROGRAM = "99"
+    GO_BACK = "89"
 
     def __init__(self) -> None:
         self.db = Database()  # creates database class
@@ -33,14 +35,12 @@ class CommandHandler:
         """)
         # wait for user input
         secenek = input("Seçiminizi Yapın: ")
-        # after this, it should go back to first screen
+        self.command_main(secenek)
 
-        self.command(secenek)
-
-    def command(self, command):
+    def command_main(self, command):
         match command:
             case self.DB_SELECT:
-                self.select_db()
+                self.select_db_screen()
 
             case self.DB_DELETE:
                 self.clear_terminal()
@@ -57,6 +57,18 @@ class CommandHandler:
                     print("YANLIS GIRDIN SILMIYOM")
                     sleep(2)
 
+            case self.TABLE_SCREEN:
+                self.clear_terminal()
+                print(f"""
+                TABLO İŞLEMLERİ EKRANI:
+                Seçili Veritabanı: {self.db.db_name}
+
+
+                {self.GO_BACK}) Geri Dön
+                """)
+                command = input("Seçiminizi Yapın: ")
+                self.command_table(command)
+
             case self.EXIT_PROGRAM:
                 print("GÖRÜŞÇEZ...")
                 exit()
@@ -65,13 +77,27 @@ class CommandHandler:
                 self.clear_terminal()
                 pass
 
+    def command_table(self, command):
+        match command:
+            case self.TABLE_ADD:
+                self.table_add_screen()
+
+            case self.TABLE_DELETE:
+                self.table_delete_screen()
+
+            case self.TABLE_LIST:
+                print("Tablo Listesi:\n")
+                self.db.list_tables()
+            case self.GO_BACK:
+                self.main_loop()
+
     def clear_terminal(self):
         if name == "nt":
             _ = system("cls")
         else:
             _ = system("clear")
 
-    def select_db(self):
+    def select_db_screen(self):
         """gets the db name from user, sets it as db_name"""
         self.clear_terminal()
         print("Veritabanı İsmi Ayarlama Ekranı")
@@ -84,3 +110,13 @@ class CommandHandler:
             return "True", True
         except FileNotFoundError as e:
             return e, False
+
+    def table_add_screen(self):
+        pass
+
+    def table_delete_screen(self):
+        print("Şu anda olan tablolar:")
+        print(self.db.list_tables())
+        table = input("Hangi tabloyu silmek istediğinizi yazın:")
+        self.db.delete_table(table)
+        print("Sanırım silindi. Yanlısş bir şey yazmadıysan tabi")
