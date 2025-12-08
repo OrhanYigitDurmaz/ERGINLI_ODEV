@@ -2,6 +2,13 @@ import sqlite3
 
 
 class Database:
+    """
+    global database handler.
+
+    before calling execute, you need to call connect first.
+    this module doesnt handle errors, you are on your own. good luck.
+    """
+
     global db_name
     global con
     global cur

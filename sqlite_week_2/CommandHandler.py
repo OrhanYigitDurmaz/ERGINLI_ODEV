@@ -1,26 +1,28 @@
 from os import name, remove, system
 from time import sleep
 from typing import List
-from database import Database
+
 import Commands
-from . import RowCommands
-from . import TableCommands
+from Database import Database
+from RowCommandHandler import RowCommandHandler
+from TableCommandHandler import TableCommandHandler
 
 
-class CommandHandler():
+class CommandHandler:
     global db
     global row_command
     global table_command
 
-
     def __init__(self) -> None:
         self.db = Database()  # creates database class
-        self.row_command = RowCommands()
-        self.table_command = TableCommands()
+        self.row_command = RowCommandHandler()
+        self.table_command = TableCommandHandler()
+
+        self.row_command.set_db(self.db)
+        self.table_command.set_db(self.db)
         pass
 
-    def main_loop(self) -> None:
-        sleep(1)
+    def main_screen(self) -> None:
         self.clear_terminal()
         print(f"""
         SQLITE CLI MERHABA
@@ -44,15 +46,8 @@ class CommandHandler():
                 self.delete_db_screen()
 
             case Commands.TABLE_SCREEN:
-                self.clear_terminal()
-                print(f"""
-                TABLO İŞLEMLERİ EKRANI:
-                Seçili Veritabanı: {self.db.db_name}
-                {Commands.ROW_OP}) Row İşlemleri
+                self.table_command.command()
 
-                {Commands.GO_BACK}) Geri Dön
-                """)
-                command = input("Seçiminizi Yapın: ")
                 self.command_table(command)
 
             case Commands.EXIT_PROGRAM:
@@ -86,7 +81,7 @@ class CommandHandler():
                 self.table_list_screen()
 
             case Commands.GO_BACK:
-                self.main_loop()
+                self.main_screen()
 
     def clear_terminal(self):
         if name == "nt":
@@ -99,7 +94,7 @@ class CommandHandler():
         self.clear_terminal()
         print("Veritabanı İsmi Ayarlama Ekranı")
         self.db.db_name = input("Veritabanı İsmini Giriniz: ")
-        self.main_loop()  # geri dön
+        self.main_screen()  # geri dön
 
     def delete_db_screen(self):
         self.clear_terminal()
@@ -123,32 +118,4 @@ class CommandHandler():
         except FileNotFoundError as e:
             return e, False
 
-    def table_add_screen(self):
-        print("TABLO EKLEME EKRANI")
-        table_name = input("Eklenecek Tablonun İsmini Giriniz: ")
-        self.clear_terminal()
-        print("TABLO EKLEME EKRANI")
-        print(f"Eklenecek Tablo İsmi: {table_name}\n")
-        print("Eklenecek Row ismini gir:")
-        pass
-
-    def table_delete_screen(self):
-        print("Şu anda olan tablolar:")
-        print(self.db.list_tables())
-        table = input("Hangi tabloyu silmek istediğinizi yazın:")
-        self.db.delete_table(table)
-        print("Sanırım silindi. Yanlış bir şey yazmadıysan tabi")
-
-    def table_list_screen(self):
-        print("Tablo Listesi:\n")
-        print(self.db.list_tables())
-
-    def get_table_to_be_added(self) -> List:
-        x = 0
-        row_list = []
-        while x != 1
-            row_name = input("Eklenecek Row İsmini Giriniz: ")
-            row_list.append(row_name)
-
-
-        return row_list
+    
