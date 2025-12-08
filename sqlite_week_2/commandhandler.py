@@ -1,22 +1,15 @@
-from codeop import compile_command
 from os import name, remove, system
 from time import sleep
+from typing import List
 
 from database import Database
+import Commands
 
 
 class CommandHandler:
     global db
 
-    DB_SELECT = "11"
-    DB_DELETE = "12"
-    DB_CREATE = "13"
-    TABLE_SCREEN = "20"
-    TABLE_LIST = "21"
-    TABLE_DELETE = "22"
-    TABLE_ADD = "23"
-    EXIT_PROGRAM = "99"
-    GO_BACK = "89"
+
 
     def __init__(self) -> None:
         self.db = Database()  # creates database class
@@ -28,49 +21,37 @@ class CommandHandler:
         print(f"""
         SQLITE CLI MERHABA
         Komutlar:
-        {self.DB_SELECT}) Veritabanı İsmi Seç: {self.db.db_name}
-        {self.TABLE_SCREEN}) Tablo İşlemleri Ekranına git
-        {self.DB_DELETE}) Veritabanını SİL (gERİ dÖNÜŞÜ yOK HA)
-        {self.EXIT_PROGRAM}) ÇIKIŞ
+        {Commands.DB_SELECT}) Veritabanı İsmi Seç: {self.db.db_name}
+        {Commands.TABLE_SCREEN}) Tablo İşlemleri Ekranına git
+        {Commands.DB_DELETE}) Veritabanını SİL (gERİ dÖNÜŞÜ yOK HA)
+        {Commands.EXIT_PROGRAM}) ÇIKIŞ
 
         """)
-        # wait for user input
+        # wait for user inputprint("TABLO EKLEME EKRANI")
         secenek = input("Seçiminizi Yapın: ")
         self.command_main(secenek)
 
     def command_main(self, command):
         match command:
-            case self.DB_SELECT:
+            case Commands.DB_SELECT:
                 self.select_db_screen()
 
-            case self.DB_DELETE:
-                self.clear_terminal()
-                print(f"BAK SU VERITABANINI SILIYOM HA: {self.db.db_name}")
-                if input("Devam etmek için tam Olarak 'Evet' yaz: ") == "Evet":
-                    error, stat = self.delete_db()
-                    if stat:
-                        print("SİLDİM. benle işin kalmamıştır, çıkıyom")
-                    else:
-                        print(f"Hata Çıktı: {error}")
-                    exit()
+            case Commands.DB_DELETE:
+                self.delete_db_screen()
 
-                else:
-                    print("YANLIS GIRDIN SILMIYOM")
-                    sleep(2)
-
-            case self.TABLE_SCREEN:
+            case Commands.TABLE_SCREEN:
                 self.clear_terminal()
                 print(f"""
                 TABLO İŞLEMLERİ EKRANI:
                 Seçili Veritabanı: {self.db.db_name}
+                {Commands.ROW_OP}) Row İşlemleri
 
-
-                {self.GO_BACK}) Geri Dön
+                {Commands.GO_BACK}) Geri Dön
                 """)
                 command = input("Seçiminizi Yapın: ")
                 self.command_table(command)
 
-            case self.EXIT_PROGRAM:
+            case Commands.EXIT_PROGRAM:
                 print("GÖRÜŞÇEZ...")
                 exit()
             case _:
@@ -78,18 +59,29 @@ class CommandHandler:
                 self.clear_terminal()
                 pass
 
+    def command_row(self, command):
+        match command:
+            case Commands.ROW_ADD:
+                pass
+            case Commands.ROW_DELETE:
+                pass
+            case Commands.ROW_LIST:
+                pass
+
+        pass
+
     def command_table(self, command):
         match command:
-            case self.TABLE_ADD:
+            case Commands.TABLE_ADD:
                 self.table_add_screen()
 
-            case self.TABLE_DELETE:
+            case Commands.TABLE_DELETE:
                 self.table_delete_screen()
 
-            case self.TABLE_LIST:
+            case Commands.TABLE_LIST:
                 self.table_list_screen()
 
-            case self.GO_BACK:
+            case Commands.GO_BACK:
                 self.main_loop()
 
     def clear_terminal(self):
@@ -105,6 +97,21 @@ class CommandHandler:
         self.db.db_name = input("Veritabanı İsmini Giriniz: ")
         self.main_loop()  # geri dön
 
+    def delete_db_screen(self):
+        self.clear_terminal()
+        print(f"BAK SU VERITABANINI SILIYOM HA: {self.db.db_name}")
+        if input("Devam etmek için tam Olarak 'Evet' yaz: ") == "Evet":
+            error, stat = self.delete_db()
+            if stat:
+                print("SİLDİM. benle işin kalmamıştır, çıkıyom")
+            else:
+                print(f"Hata Çıktı: {error}")
+            exit()
+
+        else:
+            print("YANLIS GIRDIN SILMIYOM")
+            sleep(2)
+
     def delete_db(self):
         try:
             remove(self.db.db_name)
@@ -113,6 +120,12 @@ class CommandHandler:
             return e, False
 
     def table_add_screen(self):
+        print("TABLO EKLEME EKRANI")
+        table_name = input("Eklenecek Tablonun İsmini Giriniz: ")
+        self.clear_terminal()
+        print("TABLO EKLEME EKRANI")
+        print(f"Eklenecek Tablo İsmi: {table_name}\n")
+        print("Eklenecek Row ismini gir:")
         pass
 
     def table_delete_screen(self):
@@ -120,8 +133,18 @@ class CommandHandler:
         print(self.db.list_tables())
         table = input("Hangi tabloyu silmek istediğinizi yazın:")
         self.db.delete_table(table)
-        print("Sanırım silindi. Yanlısş bir şey yazmadıysan tabi")
+        print("Sanırım silindi. Yanlış bir şey yazmadıysan tabi")
 
     def table_list_screen(self):
         print("Tablo Listesi:\n")
         print(self.db.list_tables())
+
+    def get_table_to_be_added(self) -> List:
+        x = 0
+        row_list = []
+        while x != 1
+            row_name = input("Eklenecek Row İsmini Giriniz: ")
+            row_list.append(row_name)
+
+
+        return row_list
