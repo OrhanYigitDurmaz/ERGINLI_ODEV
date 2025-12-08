@@ -10,6 +10,7 @@ class CommandHandler:
 
     DB_SELECT = "11"
     DB_DELETE = "12"
+    DB_CREATE = "13"
     TABLE_SCREEN = "20"
     TABLE_LIST = "21"
     TABLE_DELETE = "22"
@@ -86,8 +87,8 @@ class CommandHandler:
                 self.table_delete_screen()
 
             case self.TABLE_LIST:
-                print("Tablo Listesi:\n")
-                self.db.list_tables()
+                self.table_list_screen()
+
             case self.GO_BACK:
                 self.main_loop()
 
@@ -120,3 +121,7 @@ class CommandHandler:
         table = input("Hangi tabloyu silmek istediğinizi yazın:")
         self.db.delete_table(table)
         print("Sanırım silindi. Yanlısş bir şey yazmadıysan tabi")
+
+    def table_list_screen(self):
+        print("Tablo Listesi:\n")
+        print(self.db.list_tables())
