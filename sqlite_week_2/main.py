@@ -1,5 +1,4 @@
 from CommandHandler import CommandHandler
-from Commands import clear_terminal
 
 # db.create_table("annen1", ["aa", "1a"])
 
@@ -9,5 +8,5 @@ if __name__ == "__main__":
         try:
             command_handler.main_screen()
         except KeyboardInterrupt:
-            clear_terminal()
+            command_handler.clear_terminal()
             exit()

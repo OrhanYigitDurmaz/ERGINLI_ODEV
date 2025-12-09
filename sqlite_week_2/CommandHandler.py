@@ -1,11 +1,10 @@
 from os import name, remove, system
 from time import sleep
-from typing import List
 
 import Commands
 from Database import Database
-from RowCommandHandler import RowCommandHandler
-from TableCommandHandler import TableCommandHandler
+from RowOperations import RowOperations
+from TableOperations import TableOperations
 
 
 class CommandHandler:
@@ -15,12 +14,22 @@ class CommandHandler:
 
     def __init__(self) -> None:
         self.db = Database()  # creates database class
-        self.row_command = RowCommandHandler()
-        self.table_command = TableCommandHandler()
+        self.db.connect(self.db.db_name)
 
-        self.row_command.set_db(self.db)
-        self.table_command.set_db(self.db)
-        pass
+        self.row_op = RowOperations()
+        self.table_op = TableOperations()
+
+        self.row_op.set_db(self.db)
+        self.table_op.set_db(self.db)
+
+        self.row_op.set_command_handler(self)
+        self.table_op.set_command_handler(self)
+
+    def clear_terminal(self):
+        if name == "nt":
+            _ = system("cls")
+        else:
+            _ = system("clear")
 
     def main_screen(self) -> None:
         self.clear_terminal()
@@ -46,9 +55,7 @@ class CommandHandler:
                 self.delete_db_screen()
 
             case Commands.TABLE_SCREEN:
-                self.table_command.command()
-
-                self.command_table(command)
+                self.table_op.table_screen()
 
             case Commands.EXIT_PROGRAM:
                 print("GÖRÜŞÇEZ...")
@@ -56,7 +63,6 @@ class CommandHandler:
             case _:
                 print("YANLIS SECIM LA, GERI DON")
                 self.clear_terminal()
-                pass
 
     def command_row(self, command):
         match command:
@@ -68,26 +74,6 @@ class CommandHandler:
                 pass
 
         pass
-
-    def command_table(self, command):
-        match command:
-            case Commands.TABLE_ADD:
-                self.table_add_screen()
-
-            case Commands.TABLE_DELETE:
-                self.table_delete_screen()
-
-            case Commands.TABLE_LIST:
-                self.table_list_screen()
-
-            case Commands.GO_BACK:
-                self.main_screen()
-
-    def clear_terminal(self):
-        if name == "nt":
-            _ = system("cls")
-        else:
-            _ = system("clear")
 
     def select_db_screen(self):
         """gets the db name from user, sets it as db_name"""
@@ -117,5 +103,3 @@ class CommandHandler:
             return "True", True
         except FileNotFoundError as e:
             return e, False
-
-    

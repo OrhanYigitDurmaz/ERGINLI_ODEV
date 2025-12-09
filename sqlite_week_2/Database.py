@@ -26,14 +26,17 @@ class Database:
     def execute(self, sql):
         self.cur.execute(sql)
 
-    def create_table(self, table_name, rows):
-        row_str = ""
-        for i in rows:
-            row_str = row_str + i + ", "
+    def create_table(self, table_name, columns):
+        column_str = ""
+        for i in columns:
+            column_str = column_str + i + ", "
 
-        row_str = row_str[:-2]  # son iki karakteri siliyom ", "
-
-        self.cur.execute(f"CREATE TABLE {table_name}({row_str})")
+        column_str = column_str[:-2]  # son iki karakteri siliyom ", "
+        print(f"CREATE TABLE {table_name}({column_str})")
+        try:
+            self.cur.execute(f"CREATE TABLE {table_name}({column_str})")
+        except sqlite3.OperationalError:
+            print("essekoglu essek niye hatalı yazıyon")
 
     def delete_table(self, table_name):
         self.cur.execute(f"DELETE TABLE {table_name}")
@@ -42,4 +45,6 @@ class Database:
     def list_tables(self):
         """returns a name list"""
         result = self.cur.execute("SELECT name FROM sqlite_master")
-        return result.fetchall()
+        tables = result.fetchall()
+
+        return tables
