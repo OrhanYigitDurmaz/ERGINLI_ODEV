@@ -52,3 +52,42 @@ class Database:
         tables = result.fetchall()
 
         return tables
+
+    def get_table_columns(self, table_name):
+        """returns column names for a table"""
+        try:
+            result = self.cur.execute(f"PRAGMA table_info({table_name})")
+            columns = result.fetchall()
+            return [col[1] for col in columns], None  # col[1] is the column name
+        except sqlite3.OperationalError as e:
+            return None, str(e)
+
+    def insert_row(self, table_name, values):
+        """inserts a row into the table"""
+        try:
+            placeholders = ", ".join(["?" for _ in values])
+            self.cur.execute(
+                f"INSERT INTO {table_name} VALUES ({placeholders})", values
+            )
+            self.con.commit()
+            return True, None
+        except sqlite3.Error as e:
+            return False, str(e)
+
+    def delete_row(self, table_name, rowid):
+        """deletes a row by rowid"""
+        try:
+            self.cur.execute(f"DELETE FROM {table_name} WHERE rowid = ?", (rowid,))
+            self.con.commit()
+            return True, None
+        except sqlite3.Error as e:
+            return False, str(e)
+
+    def select_all_rows(self, table_name):
+        """returns all rows from a table with rowid"""
+        try:
+            result = self.cur.execute(f"SELECT rowid, * FROM {table_name}")
+            rows = result.fetchall()
+            return rows, None
+        except sqlite3.Error as e:
+            return None, str(e)

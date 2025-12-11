@@ -38,6 +38,7 @@ class CommandHandler:
         Komutlar:
         {Commands.DB_SELECT}) Veritabanı İsmi Seç: {self.db.db_name}
         {Commands.TABLE_SCREEN}) Tablo İşlemleri Ekranına git
+        {Commands.ROW_OP}) Satır İşlemleri Ekranına git
         {Commands.DB_DELETE}) Veritabanını SİL (gERİ dÖNÜŞÜ yOK HA)
         {Commands.EXIT_PROGRAM}) ÇIKIŞ
 
@@ -56,6 +57,9 @@ class CommandHandler:
 
             case Commands.TABLE_SCREEN:
                 self.table_op.table_screen()
+
+            case Commands.ROW_OP:
+                self.row_op.row_screen()
 
             case Commands.EXIT_PROGRAM:
                 print("GÖRÜŞÇEZ...")
