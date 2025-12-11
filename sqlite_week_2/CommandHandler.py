@@ -69,6 +69,7 @@ class CommandHandler:
         self.clear_terminal()
         print("Veritabanı İsmi Ayarlama Ekranı")
         self.db.db_name = input("Veritabanı İsmini Giriniz: ")
+        self.db.connect(self.db.db_name)
         self.main_screen()  # geri dön
 
     def delete_db_screen(self):
