@@ -51,16 +51,14 @@ class TableOperations:
         print(f"Eklenecek Tablo İsmi: {table_name}\n")
 
         # TODO: get the row names in a loop???
-        column_name = ""
-        x = 0
         columns = []
-        while x != 1:
-            print(f"Eklenecek Columnlar: {columns}")
-            column_name = input("Eklenecek Column ismini giriniz: ")
-            columns.append(column_name)
-            s = input("Devam etmek için enter'a, çıkmak için 1 basın.")
+        while True:
+            print(f"Eklenecek Sütunlar: {columns}")
+            s = input("Sütun eklemek için enter'a, bitirmek için 1 basın: ")
             if s == "1":
-                x = 1
+                break
+            column_name = input("Eklenecek Sütun ismini giriniz: ")
+            columns.append(column_name)
         self.command_handler.clear_terminal()
         print("Ekleniyor...")
         sleep(0.5)
