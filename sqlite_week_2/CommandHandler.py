@@ -64,17 +64,6 @@ class CommandHandler:
                 print("YANLIS SECIM LA, GERI DON")
                 self.clear_terminal()
 
-    def command_row(self, command):
-        match command:
-            case Commands.ROW_ADD:
-                pass
-            case Commands.ROW_DELETE:
-                pass
-            case Commands.ROW_LIST:
-                pass
-
-        pass
-
     def select_db_screen(self):
         """gets the db name from user, sets it as db_name"""
         self.clear_terminal()
