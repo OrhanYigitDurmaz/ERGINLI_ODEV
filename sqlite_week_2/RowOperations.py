@@ -69,7 +69,7 @@ class RowOperations:
         for i, table in enumerate(tables, 1):
             print(f"  {i}) {table[0]}")
 
-        print(f"  0) Geri Dön")
+        print("  0) Geri Dön")
 
         choice = input("\nTablo numarasını seçin: ")
 
