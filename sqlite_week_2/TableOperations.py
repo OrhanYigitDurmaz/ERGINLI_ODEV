@@ -1,5 +1,4 @@
 from time import sleep
-from typing import List
 
 import Commands
 
@@ -85,11 +84,3 @@ class TableOperations:
         print(self.db.list_tables())
         input("Geri gitmek için enter a basın")
         self.table_screen()
-
-    def get_tables_to_be_added(self) -> List:
-        x = 0
-        row_list = []
-        while x != 1:
-            row_name = input("Çıkmak için 0 yazın.\nEklenecek Row İsmini Giriniz: ")
-            row_list.append(row_name)
-        return row_list
