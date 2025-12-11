@@ -65,7 +65,7 @@ class TableOperations:
         self.command_handler.clear_terminal()
         print("Ekleniyor...")
         sleep(0.5)
-        self.db.create_table(column_name, columns)
+        self.db.create_table(table_name, columns)
 
     def table_delete_screen(self):
         print("TABLO SİLME EKRANI")
