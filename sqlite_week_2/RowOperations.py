@@ -4,9 +4,6 @@ import Commands
 
 
 class RowOperations:
-    global db
-    global command_handler
-
     def __init__(self) -> None:
         self.selected_table = None
 

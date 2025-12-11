@@ -5,9 +5,6 @@ import Commands
 
 
 class TableOperations:
-    global db
-    global command_handler
-
     def __init__(self) -> None:
         pass
 

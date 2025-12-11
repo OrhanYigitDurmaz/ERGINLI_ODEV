@@ -8,10 +8,6 @@ from TableOperations import TableOperations
 
 
 class CommandHandler:
-    global db
-    global row_command
-    global table_command
-
     def __init__(self) -> None:
         self.db = Database()  # creates database class
         self.db.connect(self.db.db_name)

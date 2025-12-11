@@ -9,10 +9,6 @@ class Database:
     this module doesnt handle errors, you are on your own. good luck.
     """
 
-    global db_name
-    global con
-    global cur
-
     def __init__(self) -> None:
         self.db_name = "deneme.db"
         self.con = None
