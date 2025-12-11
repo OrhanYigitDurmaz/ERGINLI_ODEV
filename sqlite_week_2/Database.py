@@ -39,8 +39,12 @@ class Database:
             print("essekoglu essek niye hatalı yazıyon")
 
     def delete_table(self, table_name):
-        self.cur.execute(f"DELETE TABLE {table_name}")
-        return True  # TODO: add proper error return
+        try:
+            self.cur.execute(f"DROP TABLE IF EXISTS {table_name}")
+            self.con.commit()
+            return True, None
+        except sqlite3.OperationalError as e:
+            return False, str(e)
 
     def list_tables(self):
         """returns a name list"""
