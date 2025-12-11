@@ -32,8 +32,10 @@ class Database:
         try:
             self.cur.execute(f"CREATE TABLE {table_name}({column_str})")
             self.con.commit()
-        except sqlite3.OperationalError:
+            return True, None
+        except sqlite3.OperationalError as e:
             print("essekoglu essek niye hatalı yazıyon")
+            return False, str(e)
 
     def delete_table(self, table_name):
         try:
