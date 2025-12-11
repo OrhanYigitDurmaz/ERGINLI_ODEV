@@ -31,6 +31,7 @@ class Database:
         print(f"CREATE TABLE {table_name}({column_str})")
         try:
             self.cur.execute(f"CREATE TABLE {table_name}({column_str})")
+            self.con.commit()
         except sqlite3.OperationalError:
             print("essekoglu essek niye hatalı yazıyon")
 
