@@ -64,7 +64,13 @@ class TableOperations:
         self.command_handler.clear_terminal()
         print("Ekleniyor...")
         sleep(0.5)
-        self.db.create_table(table_name, columns)
+        success, error = self.db.create_table(table_name, columns)
+        if success:
+            print(f"'{table_name}' tablosu başarıyla oluşturuldu.")
+        else:
+            print(f"Tablo oluşturulurken hata oluştu: {error}")
+        input("Devam etmek için enter'a basın.")
+        self.table_screen()
 
     def table_delete_screen(self):
         print("TABLO SİLME EKRANI")
