@@ -73,6 +73,7 @@ class TableOperations:
         self.table_screen()
 
     def table_delete_screen(self):
+        self.command_handler.clear_terminal()
         print("TABLO SİLME EKRANI")
         print("Şu anda olan tablolar:")
         print(self.db.list_tables())
@@ -86,6 +87,7 @@ class TableOperations:
         self.table_screen()
 
     def table_list_screen(self):
+        self.command_handler.clear_terminal()
         print("Tablo Listesi:\n")
         print(self.db.list_tables())
         input("Geri gitmek için enter a basın")
