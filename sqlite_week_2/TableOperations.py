@@ -60,7 +60,7 @@ class TableOperations:
             column_name = input("Eklenecek Column ismini giriniz: ")
             columns.append(column_name)
             s = input("Devam etmek için enter'a, çıkmak için 1 basın.")
-            if not s:
+            if s == "1":
                 x = 1
         self.command_handler.clear_terminal()
         print("Ekleniyor...")
