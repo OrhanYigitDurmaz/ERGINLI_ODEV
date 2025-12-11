@@ -75,8 +75,13 @@ class TableOperations:
         print("Şu anda olan tablolar:")
         print(self.db.list_tables())
         table = input("Hangi tabloyu silmek istediğinizi yazın:")
-        self.db.delete_table(table)
-        print("Sanırım silindi. Yanlış bir şey yazmadıysan tabi")
+        success, error = self.db.delete_table(table)
+        if success:
+            print(f"'{table}' tablosu başarıyla silindi.")
+        else:
+            print(f"Tablo silinirken hata oluştu: {error}")
+        input("Devam etmek için enter'a basın.")
+        self.table_screen()
 
     def table_list_screen(self):
         print("Tablo Listesi:\n")
