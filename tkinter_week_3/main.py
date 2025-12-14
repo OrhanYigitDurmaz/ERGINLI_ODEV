@@ -65,10 +65,10 @@ cebutton = ttk.Button(content, text="CE")
 percent = ttk.Button(content, text="%")
 square = ttk.Button(content, text="x²")  # x + (U+00B2)
 rootof = ttk.Button(content, text="²√x")  # (U+00B2) + (U+221A) + x
+reciprocal = ttk.Button(content, text="¹/ₓ")  # (U+00B9) + / + (U+2093)
 
-
-content.grid(column=0, row=1, sticky="nsew")
-namelbl.grid(column=3, row=1, columnspan=2)
+content.grid(column=0, row=0, sticky="nsew")
+namelbl.grid(column=0, row=0, columnspan=4, sticky="e")
 one.grid(column=0, row=5, sticky="nsew")
 two.grid(column=1, row=5, sticky="nsew")
 three.grid(column=2, row=5, sticky="nsew")
@@ -96,6 +96,7 @@ cebutton.grid(column=1, row=1, sticky="nsew")
 percent.grid(column=0, row=1, sticky="nsew")
 square.grid(column=1, row=2, sticky="nsew")
 rootof.grid(column=2, row=2, sticky="nsew")
+reciprocal.grid(column=0, row=2, sticky="nsew")
 
 
 # content.columnconfigure(0, weight=1)
@@ -112,7 +113,7 @@ for i in range(0, 4):
 # content.rowconfigure(4, weight=1)
 # content.rowconfigure(5, weight=1)
 
-for i in range(0, 6):
+for i in range(0, 7):
     content.rowconfigure(i, weight=1)
 
 
