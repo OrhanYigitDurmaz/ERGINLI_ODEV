@@ -2,20 +2,20 @@ import tkinter as tk
 from tkinter import ttk
 
 root = tk.Tk()
-root.geometry("800x1200")
+root.geometry("500x800")
 root.title("HESAP MAKİNESİ")
 # windows calculatorun normali 3:2
 
 content = ttk.Frame(root)
-# frame = ttk.Frame(content, borderwidth=5, relief="ridge", width=800, height=1200)
-namelbl = ttk.Label(content, text="0")
+namelbl = ttk.Label(content, text="0", style="W.TLabel", anchor="e")
 
 # style kısmını geeksforgeeks sitesinden baktım
 # https://tkdocs.com/tutorial/styles.html
 #
 #
 # This will create style object
-style = ttk.Style()
+lblstyle = ttk.Style()
+btnstyle = ttk.Style()
 
 # This will be adding style, and
 # naming that style variable as
@@ -29,19 +29,18 @@ style = ttk.Style()
 #
 #
 # https://tkdocs.com/tutorial/customstyles.html#:~:text=background%3D%5B%28%27disabled%27%2C%27%23d9d9d9%27%29%2C%20%28%27active%27%2C%27%23ececec%27%29%5D%2C
-style.configure(
-    "W.TButton",
-    # font=("calibri", 10, "bold", "underline"),
-    foreground="#FFFFFF",
-    background="#2E333B",
+lblstyle.configure(
+    "W.TLabel",
+    font=("calibri", 30, "bold"),
+)
+
+btnstyle.configure(
+    "TButton",
+    font=("calibri", 20, "bold"),
 )
 
 
-one = ttk.Button(
-    content,
-    text="1",
-    # style="W.TButton"
-)
+one = ttk.Button(content, text="1")
 two = ttk.Button(content, text="2")
 three = ttk.Button(content, text="3")
 four = ttk.Button(content, text="4")
@@ -68,7 +67,7 @@ rootof = ttk.Button(content, text="²√x")  # (U+00B2) + (U+221A) + x
 reciprocal = ttk.Button(content, text="¹/ₓ")  # (U+00B9) + / + (U+2093)
 
 content.grid(column=0, row=0, sticky="nsew")
-namelbl.grid(column=0, row=0, columnspan=4, sticky="e")
+namelbl.grid(column=0, row=0, columnspan=4, sticky="nsew")
 one.grid(column=0, row=5, sticky="nsew")
 two.grid(column=1, row=5, sticky="nsew")
 three.grid(column=2, row=5, sticky="nsew")
@@ -112,6 +111,7 @@ for i in range(0, 4):
 # content.rowconfigure(3, weight=1)
 # content.rowconfigure(4, weight=1)
 # content.rowconfigure(5, weight=1)
+# content.rowconfigure(6, weight=1)
 
 for i in range(0, 7):
     content.rowconfigure(i, weight=1)
