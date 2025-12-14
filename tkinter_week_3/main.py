@@ -2,53 +2,118 @@ import tkinter as tk
 from tkinter import ttk
 
 root = tk.Tk()
+root.geometry("800x1200")
+root.title("HESAP MAKİNESİ")
+# windows calculatorun normali 3:2
 
 content = ttk.Frame(root)
-frame = ttk.Frame(content, borderwidth=5, relief="ridge", width=200, height=200)
-namelbl = ttk.Label(content, text="Name")
-name = ttk.Entry(content)
+# frame = ttk.Frame(content, borderwidth=5, relief="ridge", width=800, height=1200)
+namelbl = ttk.Label(content, text="0")
 
-one = ttk.Button(content, text="One")
-two = ttk.Button(content, text="Two")
-three = ttk.Button(content, text="Three")
-four = ttk.Button(content, text="Four")
-five = ttk.Button(content, text="Five")
-six = ttk.Button(content, text="Six")
-seven = ttk.Button(content, text="Seven")
-eight = ttk.Button(content, text="Eight")
-nine = ttk.Button(content, text="Nine")
-zero = ttk.Button(content, text="Zero")
+# style kısmını geeksforgeeks sitesinden baktım
+# https://tkdocs.com/tutorial/styles.html
+#
+#
+# This will create style object
+style = ttk.Style()
 
-
-content.grid(column=0, row=0, sticky="nsew")
-frame.grid(column=0, row=0, columnspan=3, rowspan=2)
-# namelbl.grid(column=3, row=0, columnspan=2)
-# name.grid(column=3, row=1, columnspan=2)
-one.grid(column=0, row=4, sticky="nsew")
-two.grid(column=1, row=4, sticky="nsew")
-three.grid(column=2, row=4, sticky="nsew")
-
-four.grid(column=0, row=3, sticky="nsew")
-five.grid(column=1, row=3, sticky="nsew")
-six.grid(column=2, row=3, sticky="nsew")
-
-seven.grid(column=0, row=2, sticky="nsew")
-eight.grid(column=1, row=2, sticky="nsew")
-nine.grid(column=2, row=2, sticky="nsew")
-
-zero.grid(column=1, row=5, sticky="nsew")
+# This will be adding style, and
+# naming that style variable as
+# W.Tbutton (TButton is used for ttk.Button).
+#
+# (method) def configure(
+#    style: str,
+#    query_opt: None = None,
+#    **kw: Any
+# ) -> None
+#
+#
+# https://tkdocs.com/tutorial/customstyles.html#:~:text=background%3D%5B%28%27disabled%27%2C%27%23d9d9d9%27%29%2C%20%28%27active%27%2C%27%23ececec%27%29%5D%2C
+style.configure(
+    "W.TButton",
+    # font=("calibri", 10, "bold", "underline"),
+    foreground="#FFFFFF",
+    background="#2E333B",
+)
 
 
-content.columnconfigure(0, weight=1)
-content.columnconfigure(1, weight=1)
-content.columnconfigure(2, weight=1)
-content.columnconfigure(3, weight=1)
-content.rowconfigure(0, weight=1)
-content.rowconfigure(1, weight=1)
-content.rowconfigure(2, weight=1)
-content.rowconfigure(3, weight=1)
-content.rowconfigure(4, weight=1)
-content.rowconfigure(5, weight=1)
+one = ttk.Button(
+    content,
+    text="1",
+    # style="W.TButton"
+)
+two = ttk.Button(content, text="2")
+three = ttk.Button(content, text="3")
+four = ttk.Button(content, text="4")
+five = ttk.Button(content, text="5")
+six = ttk.Button(content, text="6")
+seven = ttk.Button(content, text="7")
+eight = ttk.Button(content, text="8")
+nine = ttk.Button(content, text="9")
+zero = ttk.Button(content, text="0")
+
+plusnegative = ttk.Button(content, text="⁺/₋")  # (U+207A) + / + (U+208B)
+dotbutton = ttk.Button(content, text=".")
+equal = ttk.Button(content, text="=")
+plus = ttk.Button(content, text="+")
+negative = ttk.Button(content, text="-")
+times = ttk.Button(content, text="x")
+divide = ttk.Button(content, text="÷")
+delete = ttk.Button(content, text="⌫")  # (U+232B)
+cbutton = ttk.Button(content, text="C")
+cebutton = ttk.Button(content, text="CE")
+percent = ttk.Button(content, text="%")
+square = ttk.Button(content, text="x²")  # x + (U+00B2)
+rootof = ttk.Button(content, text="²√x")  # (U+00B2) + (U+221A) + x
+
+
+content.grid(column=0, row=1, sticky="nsew")
+namelbl.grid(column=3, row=1, columnspan=2)
+one.grid(column=0, row=5, sticky="nsew")
+two.grid(column=1, row=5, sticky="nsew")
+three.grid(column=2, row=5, sticky="nsew")
+
+four.grid(column=0, row=4, sticky="nsew")
+five.grid(column=1, row=4, sticky="nsew")
+six.grid(column=2, row=4, sticky="nsew")
+
+seven.grid(column=0, row=3, sticky="nsew")
+eight.grid(column=1, row=3, sticky="nsew")
+nine.grid(column=2, row=3, sticky="nsew")
+
+zero.grid(column=1, row=6, sticky="nsew")
+
+plusnegative.grid(column=0, row=6, sticky="nsew")
+dotbutton.grid(column=2, row=6, sticky="nsew")
+equal.grid(column=3, row=6, sticky="nsew")
+plus.grid(column=3, row=5, sticky="nsew")
+negative.grid(column=3, row=4, sticky="nsew")
+times.grid(column=3, row=3, sticky="nsew")
+divide.grid(column=3, row=2, sticky="nsew")
+delete.grid(column=3, row=1, sticky="nsew")
+cbutton.grid(column=2, row=1, sticky="nsew")
+cebutton.grid(column=1, row=1, sticky="nsew")
+percent.grid(column=0, row=1, sticky="nsew")
+square.grid(column=1, row=2, sticky="nsew")
+rootof.grid(column=2, row=2, sticky="nsew")
+
+
+# content.columnconfigure(0, weight=1)
+# content.columnconfigure(1, weight=1)
+# content.columnconfigure(2, weight=1)
+# content.columnconfigure(3, weight=1)
+for i in range(0, 4):
+    content.columnconfigure(i, weight=1)
+
+# content.rowconfigure(0, weight=1)
+# content.rowconfigure(1, weight=1)
+# content.rowconfigure(2, weight=1)
+# content.rowconfigure(3, weight=1)
+# content.rowconfigure(4, weight=1)
+# content.rowconfigure(5, weight=1)
+
+for i in range(0, 6):
+    content.rowconfigure(i, weight=1)
 
 
 root.columnconfigure(0, weight=1)
