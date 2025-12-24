@@ -26,7 +26,3 @@ class Database:
     def kisi_sil(self, id):
         self.imlec.execute(f"DELETE FROM people WHERE id={id}")
         self.connection.commit()
-
-    def __del__(self):
-        # Automatically close connection when the object is destroyed
-        self.connection.close()
