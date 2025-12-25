@@ -6,7 +6,7 @@ from Database import Database
 DB_NAME = "rehber.db"
 
 
-class RehberUygulamasi:
+class RehberUygulama:
     def __init__(self, root):
         self.root = root
         self.root.title("Basit Telefon Rehberi")
@@ -73,6 +73,7 @@ class RehberUygulamasi:
             self.soyad_giris.delete(0, tk.END)
             self.tel_giris.delete(0, tk.END)
             messagebox.showinfo("Başarılı", "Kişi Rehbere Eklendi!")
+            self.kayitlari_goster_arayuz()
         else:
             messagebox.showwarning("Uyarı", "Lütfen tüm alanları doldurun.")
 
@@ -104,5 +105,5 @@ class RehberUygulamasi:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    uygulama = RehberUygulamasi(root)
+    uygulama = RehberUygulama(root)
     root.mainloop()
