@@ -52,7 +52,6 @@ class RehberUygulamasi:
         )
         self.liste_etiketi.grid(row=5, column=0, columnspan=2, padx=10, sticky="nsew")
 
-        # --- Silme Bölümü ---
         tk.Label(root, text="Silinecek ID").grid(
             row=6, column=0, pady=5, sticky="w", padx=10
         )
