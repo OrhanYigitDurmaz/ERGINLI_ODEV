@@ -38,3 +38,12 @@ user_ids = list(user_ids_iterator)
 
 print("Sonuç ID'ler:", user_ids)
 # Çıktı: [101, 102, 103]
+#
+#
+# # ESKİ VE ÇİRKİN (Lambda'lı):
+# Sadece aktif user'ların id'lerini al, RAM harcama
+ids = map(lambda u: u.id, filter(lambda u: u.is_active, users))
+
+# YENİ VE SENIOR (Generator Expression):
+# Aynı iş, sıfır lambda, sıfır kafa karışıklığı
+ids = (u.id for u in users if u.is_active)
